@@ -270,7 +270,6 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. Robot or
                 RandomWalkRobot)
     """
-    anim = ps6_visualize.RobotVisualization(num_robots, width, height)
 
     room = RectangularRoom(width, height)
     robots = [robot_type(room, speed)]*num_robots
@@ -282,16 +281,13 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
             for robot in robots:
                 robot.updatePositionAndClean()
             c += 1
-            anim.update(room, robots)
         clicks.append(c)
         c = 0
-    for c in clicks:
+    for c in clicks:    
         total_clicks += c
 
-    anim.done()
     return total_clicks/num_trials
 
-    
     #raise NotImplementedError
 
 #print(runSimulation(10,1.0,15,20,0.8,30, StandardRobot))
@@ -316,6 +312,7 @@ def showPlot1():
     plt.show(plt.show(plt.plot(robotsX, cleaning_timeY)))
     #plt.show()
 
+
 def showPlot2():
     """
     Produces a plot showing dependence of cleaning time on room shape.
@@ -328,14 +325,12 @@ def showPlot2():
     ratios = []
     cleaning_timeY = []
 
-
     for a, b in dimentions:
         ratios.append(a/b)
         cleaning_timeY.append(runSimulation(2, 1.0, a, b, 0.8, 1000, StandardRobot))
 
     plt.show(plt.plot(ratios, cleaning_timeY))
     #raise NotImplementedError
-
 
 
 # === Problem 5
@@ -352,7 +347,7 @@ class RandomWalkRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        nextPos = self.getRobotPosition().getNewPosition(random.randint(0.359), self.speed)
+        nextPos = self.getRobotPosition().getNewPosition(random.randint(0,359), self.speed)
         if self.room.isPositionInRoom(nextPos):
             self.setRobotPosition(nextPos)
             self.setRobotDirection(random.randint(0,359))
@@ -363,11 +358,11 @@ class RandomWalkRobot(Robot):
     # raise NotImplementedError
 
 
-# === Problem 6
+# # === Problem 6
 
-# For the parameters tested below (cleaning 80% of a 20x20 square room),
-# RandomWalkRobots take approximately twice as long to clean the same room as
-# StandardRobots do.
+# # For the parameters tested below (cleaning 80% of a 20x20 square room),
+# # RandomWalkRobots take approximately twice as long to clean the same room as
+# # StandardRobots do.
 def showPlot3():
     """
     Produces a plot comparing the two robot strategies.
@@ -391,8 +386,7 @@ def showPlot3():
     plt.plot(robotsX, cleaning_timeY2, label='Cleaning Time 2')
     plt.show()
 
-showPlot1()
+showPlot3()
 
 
     #raise NotImplementedError
-
